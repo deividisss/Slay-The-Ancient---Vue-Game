@@ -25,7 +25,7 @@
           <div class="healthbar">
             <div
               class="healthbar text-center"
-              style="background-color: green; margin: 0; color: white;"
+              :style="[styleHealthBar, {width:widthHealth}]"
             >
               {{ monster.Health }}
             </div>
@@ -48,7 +48,9 @@
       <section class="row log">
         <div class="small-12 columns">
           <ul>
-            <li></li>
+            <li v-for="(logEntry, index) in log" :key="`logEntry-${index}`">
+              {{ logEntry }}
+            </li>
           </ul>
         </div>
       </section>

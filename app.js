@@ -1,6 +1,7 @@
 new Vue({
   el: "#app",
   data: {
+    stateWon: false,
     width: "40%",
     color: "red",
     health: 200,
@@ -12,13 +13,14 @@ new Vue({
       },
     },
     monster: {
+      StartHealth: 100,
       Health: 100,
     },
     log: ["testas", "kaskas"],
     styleHealthBar: {
       backgroundColor: "green",
       margin: 0,
-      // color: "white",
+      color: "white",
       width: "50%",
     },
   },
@@ -32,9 +34,21 @@ new Vue({
   computed: {
     widthHealth() {
       if (this.monster.Health <= 0) {
+        var kaskas = document.getElementById("logas");
+        kaskas.style.display = "none";
+
+        setTimeout(function () {
+          alert("You win!");
+        }, 500);
+
         return this.monster.Health + "%";
       }
       return this.monster.Health + "%";
+    },
+  },
+  watch: {
+    stateWon: function () {
+      this.monster.Health = 0;
     },
   },
 });

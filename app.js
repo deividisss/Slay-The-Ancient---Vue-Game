@@ -36,7 +36,7 @@ new Vue({
       if (this.monster.Health <= 0) {
         var kaskas = document.getElementById("logas");
         kaskas.style.display = "none";
-
+        this.stateWon = !this.stateWon;
         setTimeout(function () {
           alert("You win!");
         }, 500);

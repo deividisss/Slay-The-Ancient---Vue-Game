@@ -54,7 +54,11 @@
       <section class="row log">
         <div class="small-12 columns" id="logas">
           <ul>
-            <li v-for="(logEntry, index) in log" :key="`logEntry-${index}`">
+            <li
+              v-for="(logEntry, index) in log"
+              :key="`logEntry-${index}`"
+              :class="{['player-turn'] : playerTurn}"
+            >
               {{ logEntry }}
             </li>
           </ul>

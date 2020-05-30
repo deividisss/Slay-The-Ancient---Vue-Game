@@ -8,6 +8,7 @@ new Vue({
     health: 200,
     player: {
       Health: 100,
+      //min max attack formula to add some randomness
       simpleAttack: 30,
       specialAtack: function () {
         return this.simpleAttack + 5;
@@ -16,6 +17,7 @@ new Vue({
     monster: {
       StartHealth: 100,
       Health: 100,
+      simpleAttack: 15,
     },
     log: ["testas", "kaskas"],
     styleHealthBar: {
@@ -29,10 +31,14 @@ new Vue({
     attackMonster() {
       this.monster.Health -= this.player.simpleAttack;
       this.addToLog(this.player.simpleAttack);
+      this.attackPlayer();
       console.log(this.log);
 
       console.log(this.player.simpleAttack);
       console.log(this.player.specialAtack());
+    },
+    attackPlayer() {
+      this.player.Health -= this.monster.simpleAttack;
     },
     //gets values and adds the to the array
     addToLog(argument) {
@@ -55,6 +61,21 @@ new Vue({
       }
 
       return this.monster.Health + "%";
+    },
+    widthHealthPlayer() {
+      // if (this.monster.Health <= 0) {
+      //   // alert("what");
+      //   var kaskas = document.getElementById("logas");
+      //   kaskas.style.display = "none";
+      //   this.stateWon = !this.stateWon;
+      //   setTimeout(function () {
+      //     alert("You win!");
+      //   }, 550);
+      //   // alert("You win! after");
+      //   this.monster.Health = 0;
+      //   return this.monster.Health + "%";
+      // }
+      return this.player.Health + "%";
     },
   },
   watch: {

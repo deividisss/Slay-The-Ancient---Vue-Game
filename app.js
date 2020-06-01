@@ -11,7 +11,7 @@ new Vue({
       //min max attack formula to add some randomness
       simpleAttack: 30,
       specialAtack: function () {
-        return this.simpleAttack + 5;
+        return this.simpleAttack + 20;
       },
     },
     monster: {
@@ -32,10 +32,11 @@ new Vue({
       this.monster.Health -= this.player.simpleAttack;
       this.addToLog(this.player.simpleAttack);
       this.attackPlayer();
-      console.log(this.log);
-
-      console.log(this.player.simpleAttack);
-      console.log(this.player.specialAtack());
+    },
+    attackMonsterSpecial() {
+      this.monster.Health -= this.player.specialAtack();
+      this.addToLog(this.player.specialAtack());
+      this.attackPlayer();
     },
     attackPlayer() {
       this.player.Health -= this.monster.simpleAttack;

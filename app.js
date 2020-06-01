@@ -50,6 +50,8 @@ new Vue({
     //Fix hea;l over 100
     healPlayer() {
       this.player.Health += this.player.heal();
+      if (this.player.Health > 100) this.player.Health = 100;
+
       const msg = `player heals himself for +${this.player.heal()} HP`;
       this.addToLog(msg);
       this.stateAction = true;

@@ -46,10 +46,20 @@
           >
             ATTACK
           </button>
-          <button id="special-attack" v-on:click="attackMonsterSpecial">
+          <button
+            id="special-attack"
+            v-on:click="attackMonsterSpecial"
+            :class="{ ['btn-disable'] : stateWon }"
+          >
             SPECIAL ATTACK
           </button>
-          <button id="heal">HEAL</button>
+          <button
+            id="heal"
+            v-on:click="healPlayer"
+            :class="{ ['btn-disable'] : stateWon }"
+          >
+            HEAL
+          </button>
           <button id="give-up">GIVE UP</button>
         </div>
       </section>

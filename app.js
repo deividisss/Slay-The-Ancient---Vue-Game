@@ -10,8 +10,11 @@ new Vue({
       Health: 100,
       //min max attack formula to add some randomness
       simpleAttack: 30,
-      specialAtack: function () {
+      specialAtack() {
         return this.simpleAttack + 20;
+      },
+      heal() {
+        return 20;
       },
     },
     monster: {
@@ -30,16 +33,31 @@ new Vue({
   methods: {
     attackMonster() {
       this.monster.Health -= this.player.simpleAttack;
-      this.addToLog(this.player.simpleAttack);
+      const msg = `player hits Monster with Simple attack for ${this.player.simpleAttack} dmg`;
+      this.addToLog(msg);
       this.attackPlayer();
     },
     attackMonsterSpecial() {
       this.monster.Health -= this.player.specialAtack();
-      this.addToLog(this.player.specialAtack());
+      const msg = `player hits Monster with Special attack for ${this.player.specialAtack()} dmg`;
+      this.addToLog(msg);
       this.attackPlayer();
     },
     attackPlayer() {
       this.player.Health -= this.monster.simpleAttack;
+    },
+    //Fix hea;l over 100
+    healPlayer() {
+      this.player.Health += this.player.heal();
+      const msg = `player heals himself for +${this.player.heal()} HP`;
+      this.addToLog(msg);
+      Vue.nextTick(function () {
+        vm.$el.textContent === "new message"; // true
+      });
+      var that = this;
+      setTimeout(function () {
+        that.attackPlayer();
+      }, 1000);
     },
     //gets values and adds the to the array
     addToLog(argument) {
@@ -50,8 +68,8 @@ new Vue({
     widthHealth() {
       if (this.monster.Health <= 0) {
         // alert("what");
-        var kaskas = document.getElementById("logas");
-        kaskas.style.display = "none";
+        // var kaskas = document.getElementById("logas");
+        // kaskas.style.display = "none";
         this.stateWon = !this.stateWon;
         setTimeout(function () {
           alert("You win!");

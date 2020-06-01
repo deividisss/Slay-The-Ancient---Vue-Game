@@ -2,6 +2,7 @@ new Vue({
   el: "#app",
   data: {
     stateWon: false,
+    stateAction: false,
     playerTurn: true,
     width: "40%",
     color: "red",
@@ -51,12 +52,11 @@ new Vue({
       this.player.Health += this.player.heal();
       const msg = `player heals himself for +${this.player.heal()} HP`;
       this.addToLog(msg);
-      Vue.nextTick(function () {
-        vm.$el.textContent === "new message"; // true
-      });
+      this.stateAction = true;
       var that = this;
       setTimeout(function () {
         that.attackPlayer();
+        that.stateAction = false;
       }, 1000);
     },
     //gets values and adds the to the array

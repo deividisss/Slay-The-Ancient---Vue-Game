@@ -42,21 +42,21 @@
           <button
             v-on:click="attackMonster()"
             id="attack"
-            :class="{ ['btn-disable'] : stateWon }"
+            :class="{ ['btn-disable'] : state.playerAction || state.playerWon }"
           >
             ATTACK
           </button>
           <button
             id="special-attack"
             v-on:click="attackMonsterSpecial"
-            :class="{ ['btn-disable'] : stateWon }"
+            :class="{ ['btn-disable'] : state.playerAction ||state.playerWon }"
           >
             SPECIAL ATTACK
           </button>
           <button
             id="heal"
             v-on:click="healPlayer"
-            :class="{ 'btn-disable' : stateAction || stateWon }"
+            :class="{ 'btn-disable' : state.playerAction || state.playerWon }"
           >
             HEAL
           </button>
@@ -69,7 +69,7 @@
             <li
               v-for="(logEntry, index) in log"
               :key="`logEntry-${index}`"
-              :class="{['player-turn'] : playerTurn}"
+              :class="{['player-turn'] : state.playerTurn}"
             >
               {{ logEntry }}
             </li>

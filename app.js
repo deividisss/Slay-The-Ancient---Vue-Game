@@ -1,9 +1,11 @@
 new Vue({
   el: "#app",
   data: {
-    stateWon: false,
-    stateAction: false,
-    playerTurn: true,
+    state: {
+      playerWon: false,
+      playerAction: false,
+      playerTurn: true,
+    },
     width: "40%",
     color: "red",
     health: 200,
@@ -44,6 +46,7 @@ new Vue({
       this.addToLog(msg);
       this.attackPlayer();
     },
+    //add red color to hp bar when plaeyr gets dmg
     attackPlayer() {
       this.player.Health -= this.monster.simpleAttack;
     },
@@ -54,11 +57,11 @@ new Vue({
 
       const msg = `player heals himself for +${this.player.heal()} HP`;
       this.addToLog(msg);
-      this.stateAction = true;
+      this.state.playerAction = true;
       var that = this;
       setTimeout(function () {
         that.attackPlayer();
-        that.stateAction = false;
+        that.state.playerAction = false;
       }, 1000);
     },
     //gets values and adds the to the array
@@ -72,7 +75,7 @@ new Vue({
         // alert("what");
         // var kaskas = document.getElementById("logas");
         // kaskas.style.display = "none";
-        this.stateWon = !this.stateWon;
+        this.state.playerWon = !this.state.playerWon;
         setTimeout(function () {
           alert("You win!");
         }, 550);
@@ -88,7 +91,7 @@ new Vue({
       //   // alert("what");
       //   var kaskas = document.getElementById("logas");
       //   kaskas.style.display = "none";
-      //   this.stateWon = !this.stateWon;
+      //   this.state.playerWon = !this.state.playerWon;
       //   setTimeout(function () {
       //     alert("You win!");
       //   }, 550);

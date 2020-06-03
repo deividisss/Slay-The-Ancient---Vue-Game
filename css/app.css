@@ -103,13 +103,3 @@ button {
   background-color: #ddd;
   background: #ddd;
 }
-
-.btn-disable2 {
-  cursor: not-allowed;
-  pointer-events: none;
-
-  color: GrayText;
-
-  background-color: #ddd;
-  background: #ddd;
-}

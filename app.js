@@ -37,18 +37,21 @@ new Vue({
     attackMonster() {
       this.monster.Health -= this.player.simpleAttack;
       const msg = `player hits Monster with Simple attack for ${this.player.simpleAttack} dmg`;
-      this.addToLog(msg);
+      const person = "player";
+      this.addToLog(msg, person);
       this.attackPlayer();
     },
     attackMonsterSpecial() {
       this.monster.Health -= this.player.specialAtack();
       const msg = `player hits Monster with Special attack for ${this.player.specialAtack()} dmg`;
-      this.addToLog(msg);
+      this.addToLog(msg, "player");
       this.attackPlayer();
     },
     //add red color to hp bar when plaeyr gets dmg
     attackPlayer() {
       this.player.Health -= this.monster.simpleAttack;
+      const msg = `monster hits player for ${this.monster.simpleAttack} dmg`;
+      this.addToLog(msg, "monster");
     },
     //Fix hea;l over 100
     healPlayer() {
@@ -56,7 +59,7 @@ new Vue({
       if (this.player.Health > 100) this.player.Health = 100;
 
       const msg = `player heals himself for +${this.player.heal()} HP`;
-      this.addToLog(msg);
+      this.addToLog(msg, "player");
       this.state.playerAction = true;
       var that = this;
       setTimeout(function () {
@@ -65,8 +68,19 @@ new Vue({
       }, 1000);
     },
     //gets values and adds the to the array
-    addToLog(argument) {
-      this.log.unshift(argument);
+    addToLog(msg, person) {
+      class LogMsg {
+        constructor(msg, person) {
+          this.msg = msg;
+          this.person = person;
+        }
+      }
+      let logMsg = new LogMsg(msg, person);
+      console.log(logMsg);
+
+      // this.log.unshift({ msg: msg, person: person });
+      this.log.unshift(logMsg);
+      console.log(this.log);
     },
   },
   computed: {
@@ -86,6 +100,7 @@ new Vue({
 
       return this.monster.Health + "%";
     },
+
     widthHealthPlayer() {
       // if (this.monster.Health <= 0) {
       //   // alert("what");

@@ -66,13 +66,16 @@
       <section class="row log">
         <div class="small-12 columns" id="logas">
           <ul>
-            <li
+            <template
               v-for="(logEntry, index) in log"
               :key="`logEntry-${index}`"
-              :class="{['player-turn'] : state.playerTurn}"
             >
-              {{ logEntry }}
-            </li>
+              <li
+                :class="{ 'player-turn':logEntry.person == 'player', 'monster-turn':logEntry.person == 'monster'}"
+              >
+                {{ logEntry.msg }} {{ logEntry.person }}
+              </li>
+            </template>
           </ul>
         </div>
       </section>

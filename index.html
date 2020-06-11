@@ -32,12 +32,12 @@
           </div>
         </div>
       </section>
-      <section class="row controls">
+      <section v-show="state.gameInProgress" class="row controls">
         <div class="small-12 columns">
-          <button id="start-game">START NEW GAME</button>
+          <button id="start-game" @click="startNewGame">START NEW GAME</button>
         </div>
       </section>
-      <section class="row controls">
+      <section v-show="!state.gameInProgress" class="row controls">
         <div class="small-12 columns">
           <button
             v-on:click="attackMonster()"
@@ -60,10 +60,18 @@
           >
             HEAL
           </button>
-          <button id="give-up">GIVE UP</button>
+          <button
+            id="give-up"
+            :class="{ 'btn-disable' : state.playerAction || state.playerWon }"
+          >
+            GIVE UP
+          </button>
         </div>
       </section>
-      <section class="row log">
+      <section
+        v-show="!state.gameInProgress & log.length !== 0"
+        class="row log"
+      >
         <div class="small-12 columns" id="logas">
           <ul>
             <template

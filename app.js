@@ -5,6 +5,7 @@ new Vue({
       playerWon: false,
       playerAction: false,
       playerTurn: true,
+      gameInProgress: true,
     },
     width: "40%",
     color: "red",
@@ -19,13 +20,21 @@ new Vue({
       heal() {
         return 20;
       },
+      baseStats() {
+        const Health = 100;
+        this.Health = Health;
+      },
     },
     monster: {
       StartHealth: 100,
       Health: 100,
       simpleAttack: 15,
+      baseStats() {
+        const Health = 100;
+        this.Health = Health;
+      },
     },
-    log: ["testas", "kaskas"],
+    log: [],
     styleHealthBar: {
       backgroundColor: "green",
       margin: 0,
@@ -34,6 +43,13 @@ new Vue({
     },
   },
   methods: {
+    startNewGame() {
+      // alert("Game Restarted");
+      this.player.baseStats();
+      this.monster.baseStats();
+      this.log = [];
+      this.state.gameInProgress = false;
+    },
     attackMonster() {
       this.monster.Health -= this.player.simpleAttack;
       const msg = `player hits Monster with Simple attack for ${this.player.simpleAttack} dmg`;

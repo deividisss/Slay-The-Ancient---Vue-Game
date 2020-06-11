@@ -5,7 +5,7 @@ new Vue({
       playerWon: false,
       playerAction: false,
       playerTurn: true,
-      gameInProgress: true,
+      gameInProgress: false,
     },
     width: "40%",
     color: "red",
@@ -15,7 +15,7 @@ new Vue({
       //min max attack formula to add some randomness
       simpleAttack: 30,
       specialAtack() {
-        return this.simpleAttack + 20;
+        return this.simpleAttack + 500;
       },
       heal() {
         return 20;
@@ -48,7 +48,10 @@ new Vue({
       this.player.baseStats();
       this.monster.baseStats();
       this.log = [];
-      this.state.gameInProgress = false;
+
+      this.state.gameInProgress = !this.state.gameInProgress;
+      this.state.playerWon = false;
+      // this.state.stats = false;
     },
     attackMonster() {
       this.monster.Health -= this.player.simpleAttack;
@@ -63,19 +66,19 @@ new Vue({
       this.addToLog(msg, "player");
       this.attackPlayer();
     },
-    //add red color to hp bar when plaeyr gets dmg
     attackPlayer() {
       this.player.Health -= this.monster.simpleAttack;
       const msg = `monster hits player for ${this.monster.simpleAttack} dmg`;
       this.addToLog(msg, "monster");
     },
-    //Fix hea;l over 100
     healPlayer() {
       this.player.Health += this.player.heal();
       if (this.player.Health > 100) this.player.Health = 100;
 
       const msg = `player heals himself for +${this.player.heal()} HP`;
       this.addToLog(msg, "player");
+
+      //DRY action
       this.state.playerAction = true;
       var that = this;
       setTimeout(function () {
@@ -83,7 +86,6 @@ new Vue({
         that.state.playerAction = false;
       }, 1000);
     },
-    //gets values and adds the to the array
     addToLog(msg, person) {
       class LogMsg {
         constructor(msg, person) {
@@ -102,21 +104,24 @@ new Vue({
   computed: {
     widthHealth() {
       if (this.monster.Health <= 0) {
-        // alert("what");
-        // var kaskas = document.getElementById("logas");
-        // kaskas.style.display = "none";
         this.state.playerWon = !this.state.playerWon;
+        //
+        var that = this;
         setTimeout(function () {
-          alert("You win!");
+          //Make this JS Confirm box
+          if (confirm("You win game")) {
+            that.startNewGame();
+          } else {
+            that.state.gameInProgress = false;
+          }
         }, 550);
-        // alert("You win! after");
         this.monster.Health = 0;
         return this.monster.Health + "%";
       }
 
       return this.monster.Health + "%";
     },
-
+    //Make paleyr loose !!!
     widthHealthPlayer() {
       // if (this.monster.Health <= 0) {
       //   // alert("what");

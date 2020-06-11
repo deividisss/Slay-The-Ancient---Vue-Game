@@ -9,6 +9,10 @@
   <body>
     <div id="app">
       <section class="row">
+        <h1>game in progress : {{ state.gameInProgress}}</h1>
+        <h1>playerAction : {{ state.playerAction}}</h1>
+        <h1>playerTurn : {{ state.playerTurn}}</h1>
+        <h1>playerWon : {{ state.playerWon}}</h1>
         <div class="small-6 columns">
           <h1 class="text-center">YOU</h1>
           <div class="healthbar">
@@ -32,12 +36,12 @@
           </div>
         </div>
       </section>
-      <section v-show="state.gameInProgress" class="row controls">
+      <section v-show="!state.gameInProgress" class="row controls">
         <div class="small-12 columns">
           <button id="start-game" @click="startNewGame">START NEW GAME</button>
         </div>
       </section>
-      <section v-show="!state.gameInProgress" class="row controls">
+      <section v-show="state.gameInProgress " class="row controls">
         <div class="small-12 columns">
           <button
             v-on:click="attackMonster()"
@@ -68,10 +72,7 @@
           </button>
         </div>
       </section>
-      <section
-        v-show="!state.gameInProgress & log.length !== 0"
-        class="row log"
-      >
+      <section v-show="log.length !== 0 " class="row log">
         <div class="small-12 columns" id="logas">
           <ul>
             <template

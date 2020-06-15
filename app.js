@@ -1,6 +1,7 @@
 new Vue({
   el: "#app",
   data: {
+    //Make computed state variables
     state: {
       playerWon: false,
       playerAction: false,

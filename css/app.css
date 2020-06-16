@@ -103,3 +103,7 @@ button {
   background-color: #ddd;
   background: #ddd;
 }
+
+h4 :first-child {
+  text-transform: uppercase;
+}

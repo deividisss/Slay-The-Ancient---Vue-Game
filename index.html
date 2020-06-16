@@ -8,11 +8,19 @@
   </head>
   <body>
     <div id="app">
-      <section class="row">
-        <h1>game in progress : {{ state.gameInProgress}}</h1>
-        <h1>playerAction : {{ state.playerAction}}</h1>
-        <h1>playerTurn : {{ state.playerTurn}}</h1>
-        <h1>playerWon : {{ state.playerWon}}</h1>
+  
+        <div v-if="state.showStates" class="row">
+          <h1>States</h4>
+            <hr>
+
+          <h4>Game in progress :<span :style="state.gameInProgress ? 'color:green' : 'color:red'"> {{ state.gameInProgress}}  </span></h4>
+       
+          <h4>PlayerTurn : <span :style="state.playerTurn ? 'color:green' : 'color:red'"> {{ state.playerTurn}}</span></h4>
+          <h4>PlayerWon : <span :style="state.playerWon ? 'color:green' : 'color:red'"> {{ state.playerWon}} </span></h4>
+             <h4>PlayerAction : <span :style="state.playerAction ? 'color:green' : 'color:red'">  {{ state.playerAction}}  </span></h4>
+          <hr><br>
+        </div>
+        <section class="row">
         <div class="small-6 columns">
           <h1 class="text-center">YOU</h1>
           <div class="healthbar">

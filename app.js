@@ -3,6 +3,7 @@ new Vue({
   data: {
     //Make computed state variables
     state: {
+      showStates: true,
       playerWon: false,
       playerAction: false,
       playerTurn: true,
@@ -52,7 +53,6 @@ new Vue({
 
       this.state.gameInProgress = !this.state.gameInProgress;
       this.state.playerWon = false;
-      // this.state.stats = false;
     },
     attackMonster() {
       this.monster.Health -= this.player.simpleAttack;
@@ -101,15 +101,18 @@ new Vue({
       this.log.unshift(logMsg);
       console.log(this.log);
     },
+    stateStyle(data) {
+      // alert(data);
+
+      return "color:red";
+    },
   },
   computed: {
     widthHealth() {
       if (this.monster.Health <= 0) {
         this.state.playerWon = !this.state.playerWon;
-        //
         var that = this;
         setTimeout(function () {
-          //Make this JS Confirm box
           if (confirm("You win game")) {
             that.startNewGame();
           } else {

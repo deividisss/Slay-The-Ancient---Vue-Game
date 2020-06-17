@@ -12,9 +12,8 @@
         <div v-if="state.showStates" class="row">
           <h1>States</h4>
             <hr>
-
-          <h4>Game in progress :<span :style="state.gameInProgress ? 'color:green' : 'color:red'"> {{ state.gameInProgress}}  </span></h4>
-       
+ <!-- Little to DRY -->
+          <h4>Game in progress :<span :style="state.gameInProgress ? 'color:green' : 'color:red'"> {{ state.gameInProgress}}  </span></h4>     
           <h4>PlayerTurn : <span :style="state.playerTurn ? 'color:green' : 'color:red'"> {{ state.playerTurn}}</span></h4>
           <h4>PlayerWon : <span :style="state.playerWon ? 'color:green' : 'color:red'"> {{ state.playerWon}} </span></h4>
              <h4>PlayerAction : <span :style="state.playerAction ? 'color:green' : 'color:red'">  {{ state.playerAction}}  </span></h4>

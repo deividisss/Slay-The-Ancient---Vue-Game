@@ -1,7 +1,9 @@
+/*Tasks To DO
+    Make player looose
+*/
 new Vue({
   el: "#app",
   data: {
-    //Make computed state variables
     state: {
       showStates: true,
       playerWon: false,
@@ -17,7 +19,7 @@ new Vue({
       //min max attack formula to add some randomness
       simpleAttack: 30,
       specialAtack() {
-        return this.simpleAttack + 500;
+        return this.simpleAttack + 400;
       },
       heal() {
         return 20;
@@ -46,7 +48,6 @@ new Vue({
   },
   methods: {
     startNewGame() {
-      // alert("Game Restarted");
       this.player.baseStats();
       this.monster.baseStats();
       this.log = [];
@@ -65,12 +66,22 @@ new Vue({
       this.monster.Health -= this.player.specialAtack();
       const msg = `player hits Monster with Special attack for ${this.player.specialAtack()} dmg`;
       this.addToLog(msg, "player");
+
       this.attackPlayer();
     },
     attackPlayer() {
-      this.player.Health -= this.monster.simpleAttack;
-      const msg = `monster hits player for ${this.monster.simpleAttack} dmg`;
-      this.addToLog(msg, "monster");
+      this.state.playerAction = true;
+      if (this.monster.Health > 0) {
+        var that = this;
+        setTimeout(function () {
+          that.player.Health -= that.monster.simpleAttack;
+          const msg = `monster hits player for ${that.monster.simpleAttack} dmg`;
+          that.addToLog(msg, "monster");
+          that.state.playerAction = false;
+        }, 1000);
+      } else {
+        this.state.playerAction = false;
+      }
     },
     healPlayer() {
       this.player.Health += this.player.heal();
@@ -79,13 +90,7 @@ new Vue({
       const msg = `player heals himself for +${this.player.heal()} HP`;
       this.addToLog(msg, "player");
 
-      //DRY action
-      this.state.playerAction = true;
-      var that = this;
-      setTimeout(function () {
-        that.attackPlayer();
-        that.state.playerAction = false;
-      }, 1000);
+      this.attackPlayer();
     },
     addToLog(msg, person) {
       class LogMsg {
@@ -118,7 +123,7 @@ new Vue({
           } else {
             that.state.gameInProgress = false;
           }
-        }, 550);
+        }, 800);
         this.monster.Health = 0;
         return this.monster.Health + "%";
       }

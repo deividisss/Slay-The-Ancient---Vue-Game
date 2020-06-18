@@ -18,11 +18,12 @@ new Vue({
       Health: 100,
       //min max attack formula to add some randomness
       simpleAttack: 30,
+      //Add cooldown to special attack
       specialAtack() {
-        return this.simpleAttack + 400;
+        return this.simpleAttack + 30;
       },
       heal() {
-        return 20;
+        return 70;
       },
       baseStats() {
         const Health = 100;
@@ -32,7 +33,7 @@ new Vue({
     monster: {
       StartHealth: 100,
       Health: 100,
-      simpleAttack: 15,
+      simpleAttack: 40,
       baseStats() {
         const Health = 100;
         this.Health = Health;
@@ -130,21 +131,23 @@ new Vue({
 
       return this.monster.Health + "%";
     },
-    //Make paleyr loose !!!
     widthHealthPlayer() {
-      // if (this.monster.Health <= 0) {
-      //   // alert("what");
-      //   var kaskas = document.getElementById("logas");
-      //   kaskas.style.display = "none";
-      //   this.state.playerWon = !this.state.playerWon;
-      //   setTimeout(function () {
-      //     alert("You win!");
-      //   }, 550);
-      //   // alert("You win! after");
-      //   this.monster.Health = 0;
-      //   return this.monster.Health + "%";
-      // }
+      if (this.player.Health <= 0) {
+        this.state.playerWon = !this.state.playerWon;
+        var that = this;
+        setTimeout(function () {
+          if (confirm("You Loose game")) {
+            that.startNewGame();
+          } else {
+            that.state.gameInProgress = false;
+          }
+        }, 800);
+        this.player.Health = 0;
+        return this.player.Health + "%";
+      }
+
       return this.player.Health + "%";
+      //return this.player.Health + "%";
     },
   },
   watch: {

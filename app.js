@@ -73,12 +73,11 @@ new Vue({
     attackPlayer() {
       this.state.playerAction = true;
       if (this.monster.Health > 0) {
-        var that = this;
-        setTimeout(function () {
-          that.player.Health -= that.monster.simpleAttack;
-          const msg = `monster hits player for ${that.monster.simpleAttack} dmg`;
-          that.addToLog(msg, "monster");
-          that.state.playerAction = false;
+        setTimeout(() => {
+          this.player.Health -= this.monster.simpleAttack;
+          const msg = `monster hits player for ${this.monster.simpleAttack} dmg`;
+          this.addToLog(msg, "monster");
+          this.state.playerAction = false;
         }, 1000);
       } else {
         this.state.playerAction = false;
@@ -117,12 +116,11 @@ new Vue({
     widthHealth() {
       if (this.monster.Health <= 0) {
         this.state.playerWon = !this.state.playerWon;
-        var that = this;
-        setTimeout(function () {
+        setTimeout(() => {
           if (confirm("You win game")) {
-            that.startNewGame();
+            this.startNewGame();
           } else {
-            that.state.gameInProgress = false;
+            this.state.gameInProgress = false;
           }
         }, 800);
         this.monster.Health = 0;
@@ -134,12 +132,11 @@ new Vue({
     widthHealthPlayer() {
       if (this.player.Health <= 0) {
         this.state.playerWon = !this.state.playerWon;
-        var that = this;
-        setTimeout(function () {
+        setTimeout(() => {
           if (confirm("You Loose game")) {
-            that.startNewGame();
+            this.startNewGame();
           } else {
-            that.state.gameInProgress = false;
+            this.state.gameInProgress = false;
           }
         }, 800);
         this.player.Health = 0;
